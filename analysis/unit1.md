@@ -1,0 +1,19 @@
+## Modeling Justification
+
+I chose the Airline Booking theme not only because I enjoy travelling, but also becuase I think it is an interesting topic of how real-world systme can be organized and transferred into a relational database. 
+
+The Airline Booking system has five enetities, passengers, booking information, flights, airports, flight routes. The passengers relation equal to actors in the five roles. Each passenger has their unique passenger_id as primary key, along with their name, email, and number. The booking information equal event in the five roles. Each booking information has a unique booking_id as a primary key and references both a passenger and a flight. This allows one passenger to make multiple bookings and allows one flight to have multiple bookings. I keep booking information in its own relation can avoids storing multiple bookings information inside the passenger or flight datatable. 
+
+The flights relation acts as  the producer in the fice roles. It stores information such as the flight number, airline, departure and arrival times, capacity, and status. Departure and arrival airport information is not stored directly in the flights relation. I chose to store the information in flight_routes relation that connects flights to airports to avoid duplicate data. The airports relation acts as the catalog in the five roles. Each airport has a unique airport_id as its database primary key, and airport_code stores the real-world airport code. The flight_routes relation uses a composite primary key consisting of flight_id and airport_id. I added airport_role to indicate whether the airport is the departure or arrival airport for the flight. This makes the relationship between flights and airports more detailed without duplicating airport names, cities, or countries in the flight datatable.
+
+I used primary keys to give each table a unique way to be identified. I also used foreign keys to connect the different relations and make sure that the table they refer to actually exist. For example, a booking information should not be able to reference a passenger or flight that is not exit in the database. For the delete rules, I chose RESTRICT for passengers and flights because I would not want existing booking records to be deleted just because a passenger or flight was removed. For flight_routes, I chose CASCADE because the route information depends on the related flight and airport, so it can be removed automatically if the records are deleted.
+
+Overall, I tried to keep each relation focused on one type of information instead of putting everything into one large table. This also helps avoid repeating information, such as storing the same airport name and location for multiple flights. Using primary and foreign keys allows the different parts of the airline booking system to connect while keeping the data organized.
+
+
+
+## Reflection
+
+The challenge I have is choosing where I should put the departure and arrival airport. I put it under the flights relation, but this could potentially duplicate the airport information and make the relationship weaker. I changed the design by adding airport_role in the flight_routes relation and remove the departure location and arrival location in the flight information. 
+
+Other thing I learned from this exercise is understanding the purpose of the primary key and composite primary key. So I used the combination of two foreign keys as its primary key to uniquely identify each relationship between a flight and an airport. And I had to think deeper like which information cannot be null and consider how tables interact with each other when a record is deleted. Overall, this exercise gave me a better understanding of how to translate a real-world system into a relational database design before writing any SQL.
