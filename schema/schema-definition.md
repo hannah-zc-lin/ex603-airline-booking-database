@@ -13,7 +13,7 @@ Primary key: passenger_id
 | phone_number | VARCHAR | Passenger's phone number |
 
 
-## bookings_information
+## booking_information_information
 
 Relation: booking_information
 Primary key: booking_id
